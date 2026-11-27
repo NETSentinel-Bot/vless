@@ -1,0 +1,669 @@
+{
+    "mixed-port": 7890,
+    "ipv6": true,
+    "allow-lan": false,
+    "unified-delay": false,
+    "log-level": "silent",
+    "mode": "rule",
+    "geo-auto-update": true,
+    "geo-update-interval": 168,
+    "external-controller": "127.0.0.1:9090",
+    "external-controller-cors": {
+        "allow-origins": [
+            "*"
+        ],
+        "allow-private-network": true
+    },
+    "external-ui": "ui",
+    "external-ui-url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+    "profile": {
+        "store-selected": true,
+        "store-fake-ip": true
+    },
+    "dns": {
+        "enable": true,
+        "respect-rules": true,
+        "use-system-hosts": false,
+        "listen": "127.0.0.1:1053",
+        "ipv6": false,
+        "hosts": {
+            "rule-set:category-ads-all": "rcode://refused"
+        },
+        "nameserver": [
+            "1.1.1.1#⚫ Warp Pro - Best Ping 🔺"
+        ],
+        "proxy-server-nameserver": [
+            "8.8.8.8#DIRECT"
+        ],
+        "direct-nameserver": [
+            "8.8.8.8#DIRECT"
+        ],
+        "direct-nameserver-follow-policy": true,
+        "nameserver-policy": {
+            "rule-set:ir": "8.8.8.8#DIRECT"
+        },
+        "enhanced-mode": "fake-ip",
+        "fake-ip-range": "198.18.0.1/16",
+        "fake-ip-filter-mode": "blacklist",
+        "fake-ip-filter": [
+            "+.lan",
+            "+.local"
+        ]
+    },
+    "tun": {
+        "enable": true,
+        "stack": "mixed",
+        "auto-route": true,
+        "strict-route": true,
+        "auto-detect-interface": true,
+        "dns-hijack": [
+            "any:53",
+            "tcp://any:53"
+        ],
+        "mtu": 9000
+    },
+    "sniffer": {
+        "enable": true,
+        "force-dns-mapping": true,
+        "parse-pure-ip": true,
+        "override-destination": true,
+        "sniff": {
+            "HTTP": {
+                "ports": [
+                    80,
+                    8080,
+                    8880,
+                    2052,
+                    2082,
+                    2086,
+                    2095
+                ]
+            },
+            "TLS": {
+                "ports": [
+                    443,
+                    8443,
+                    2053,
+                    2083,
+                    2087,
+                    2096
+                ]
+            }
+        }
+    },
+    "proxies": [
+        {
+            "name": "⚫ 1 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "8.6.112.2",
+            "port": 878,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 1 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 1 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 2 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "8.6.112.113",
+            "port": 988,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 2 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 2 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 3 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "8.6.112.194",
+            "port": 864,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 3 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 3 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 4 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "8.34.70.8",
+            "port": 7103,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 4 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 4 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 5 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "8.34.70.71",
+            "port": 7156,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 5 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 5 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 6 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "162.159.195.12",
+            "port": 7103,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 6 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 6 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 7 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "162.159.195.141",
+            "port": 968,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 7 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 7 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 8 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "188.114.96.14",
+            "port": 3581,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 8 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 8 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 9 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "188.114.97.181",
+            "port": 894,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 9 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 9 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 10 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "188.114.97.204",
+            "port": 500,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 10 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 10 - Warp Pro 🇮🇷"
+        },
+        {
+            "name": "⚫ 11 - Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:868b:886b:b8af:943:81ee/128",
+            "ip-version": "ipv4",
+            "private-key": "HxkaG8OD2CjDnPZf2V5EjuFhNdw6zW5fjScSz+7Qor8=",
+            "server": "wire.nscl.ir",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "9KSe",
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 3,
+                "jmin": 10,
+                "jmax": 50
+            }
+        },
+        {
+            "name": "⚫ 11 - WoW Pro 🇪🇺",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:110:80b0:9234:c3c2:87c7:ab4b/128",
+            "ip-version": "ipv4",
+            "private-key": "14F4tkoJsDbXV5YKpSntU7W2qk1B/fcIr47WKI+l/rk=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": "LcT3",
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "⚫ 11 - Warp Pro 🇮🇷"
+        }
+    ],
+    "proxy-groups": [
+        {
+            "name": "✅ Selector",
+            "type": "select",
+            "proxies": [
+                "⚫ Warp Pro - Best Ping 🔺",
+                "⚫ WoW Pro - Best Ping 🔺",
+                "⚫ 1 - Warp Pro 🇮🇷",
+                "⚫ 1 - WoW Pro 🇪🇺",
+                "⚫ 2 - Warp Pro 🇮🇷",
+                "⚫ 2 - WoW Pro 🇪🇺",
+                "⚫ 3 - Warp Pro 🇮🇷",
+                "⚫ 3 - WoW Pro 🇪🇺",
+                "⚫ 4 - Warp Pro 🇮🇷",
+                "⚫ 4 - WoW Pro 🇪🇺",
+                "⚫ 5 - Warp Pro 🇮🇷",
+                "⚫ 5 - WoW Pro 🇪🇺",
+                "⚫ 6 - Warp Pro 🇮🇷",
+                "⚫ 6 - WoW Pro 🇪🇺",
+                "⚫ 7 - Warp Pro 🇮🇷",
+                "⚫ 7 - WoW Pro 🇪🇺",
+                "⚫ 8 - Warp Pro 🇮🇷",
+                "⚫ 8 - WoW Pro 🇪🇺",
+                "⚫ 9 - Warp Pro 🇮🇷",
+                "⚫ 9 - WoW Pro 🇪🇺",
+                "⚫ 10 - Warp Pro 🇮🇷",
+                "⚫ 10 - WoW Pro 🇪🇺",
+                "⚫ 11 - Warp Pro 🇮🇷",
+                "⚫ 11 - WoW Pro 🇪🇺"
+            ]
+        },
+        {
+            "name": "⚫ Warp Pro - Best Ping 🔺",
+            "type": "url-test",
+            "proxies": [
+                "⚫ 1 - Warp Pro 🇮🇷",
+                "⚫ 2 - Warp Pro 🇮🇷",
+                "⚫ 3 - Warp Pro 🇮🇷",
+                "⚫ 4 - Warp Pro 🇮🇷",
+                "⚫ 5 - Warp Pro 🇮🇷",
+                "⚫ 6 - Warp Pro 🇮🇷",
+                "⚫ 7 - Warp Pro 🇮🇷",
+                "⚫ 8 - Warp Pro 🇮🇷",
+                "⚫ 9 - Warp Pro 🇮🇷",
+                "⚫ 10 - Warp Pro 🇮🇷",
+                "⚫ 11 - Warp Pro 🇮🇷"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": 25,
+            "tolerance": 50
+        },
+        {
+            "name": "⚫ WoW Pro - Best Ping 🔺",
+            "type": "url-test",
+            "proxies": [
+                "⚫ 1 - WoW Pro 🇪🇺",
+                "⚫ 2 - WoW Pro 🇪🇺",
+                "⚫ 3 - WoW Pro 🇪🇺",
+                "⚫ 4 - WoW Pro 🇪🇺",
+                "⚫ 5 - WoW Pro 🇪🇺",
+                "⚫ 6 - WoW Pro 🇪🇺",
+                "⚫ 7 - WoW Pro 🇪🇺",
+                "⚫ 8 - WoW Pro 🇪🇺",
+                "⚫ 9 - WoW Pro 🇪🇺",
+                "⚫ 10 - WoW Pro 🇪🇺",
+                "⚫ 11 - WoW Pro 🇪🇺"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": 25,
+            "tolerance": 50
+        }
+    ],
+    "rule-providers": {
+        "category-ads-all": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/category-ads-all.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/category-ads-all.txt"
+        },
+        "ir": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/ir.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ir.txt"
+        },
+        "ir-cidr": {
+            "type": "http",
+            "format": "text",
+            "behavior": "ipcidr",
+            "path": "./ruleset/ir-cidr.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ircidr.txt"
+        }
+    },
+    "rules": [
+        "GEOIP,lan,DIRECT,no-resolve",
+        "RULE-SET,category-ads-all,REJECT",
+        "RULE-SET,ir,DIRECT",
+        "RULE-SET,ir-cidr,DIRECT",
+        "MATCH,✅ Selector"
+    ],
+    "ntp": {
+        "enable": true,
+        "server": "time.cloudflare.com",
+        "port": 123,
+        "interval": 30
+    }
+}
