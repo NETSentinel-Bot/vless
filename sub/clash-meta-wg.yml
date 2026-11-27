@@ -1,5 +1,5 @@
 # Generated configs for clash-meta with WireGuard proxies that have amnezia v2 parameters.
-# Time is: 2026-11-26T14:33:08.614047
+# Time is: 2026-11-27T13:21:36.879965
 
 mixed-port: 7890
 ipv6: false
@@ -26,7 +26,7 @@ profile:
 dns:
   enable: true
   ipv6: false
-  respect-rules: true
+  respect-rules: false
   use-system-hosts: false
   listen: 0.0.0.0:1053
   default-nameserver:
@@ -49,7 +49,6 @@ dns:
   fake-ip-filter:
     - "+.lan"
     - "+.local"
-    - geosite:private
 
 tun:
   enable: true
@@ -67,11 +66,11 @@ warp-dialer-common: &warp-dialer-common
   type: wireguard
   ip: 172.16.0.2/32
   ip-version: ipv4
-  private-key: 4DbpqpElkk1eAA4l1RTLDbKD03dZ6cgkKCwPvuUcT2M=
+  private-key: 0OOvfIf5qKGZe5YvinIZm/Hm2ewiGTkGC9JpT7Q1sl0=
   public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
   allowed-ips:
     - 0.0.0.0/0
-  reserved: 3fW+
+  reserved: namC
   udp: true
   mtu: 1280
   amnezia-wg-option:
@@ -90,95 +89,118 @@ warp-entry-common: &warp-entry-common
   type: wireguard
   ip: 172.16.0.3/32
   ip-version: ipv4
-  private-key: iL9b4GSYJbTi8n7x/g9NGmodXAaS9dXEuQsxcwNAuUM=
+  private-key: oGnMyE6GsG3RNOcslfjsYI1hfiuooD2p8I/06+BP3kg=
   public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
   allowed-ips:
     - 0.0.0.0/0
-  reserved: LNfo
+  reserved: 6yl4
   udp: true
   mtu: 1120
 
 masque-common: &masque-common
   type: masque
-  private-key: MHcCAQEEIOkcsGqzwUFIGp+Je205ipuWNfma1yqMRvahFSXj9mG5oAoGCCqGSM49AwEHoUQDQgAEdNtk2zEZ9eDjbUfgjuM9oV9inJ9CiY8J9Nx6ZvxSm8mXcm52wy+ql1+PTrwkFKH948jv53PWsSqh1GekL8HKew==
   public-key: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIaU7MToJm9NKp8YfGxR6r+/h4mcG7SxI8tsW8OR1A5tv/zCzVbCRRh2t87/kxnP6lAy0lkr7qYwu+ox+k3dr6w==
-  ip: 172.16.0.2
-  ipv6: 2606:4700:110:8142:4b68:f1cd:25f:56b6
+  uri: https://cloudflareaccess.com
   mtu: 1280
   udp: true
   remote-dns-resolve: true
+  congestion-controller: bbr
+  network: h2
   dns:
     - 1.1.1.1
-    - 1.0.0.1
+    - 8.8.8.8
 
 proxies:
   - name: IR-DIALER-01
     <<: *warp-dialer-common
-    server: 188.114.97.182
-    port: 859
+    server: 8.6.112.111
+    port: 5956
 
   - name: EU-ENTRY-01
     <<: *warp-entry-common
-    server: 188.114.97.122
-    port: 7559
+    server: 188.114.97.121
+    port: 1074
     dialer-proxy: IR-DIALER-01
 
   - name: IR-DIALER-02
     <<: *warp-dialer-common
-    server: 8.6.112.149
-    port: 3854
+    server: 188.114.97.161
+    port: 2371
 
   - name: EU-ENTRY-02
     <<: *warp-entry-common
-    server: 8.6.112.104
-    port: 942
+    server: 8.6.112.98
+    port: 968
     dialer-proxy: IR-DIALER-02
 
   - name: IR-DIALER-03
     <<: *warp-dialer-common
-    server: 188.114.97.74
-    port: 1014
+    server: 8.6.112.51
+    port: 5279
 
   - name: EU-ENTRY-03
     <<: *warp-entry-common
-    server: 188.114.97.154
-    port: 880
+    server: 188.114.97.118
+    port: 934
     dialer-proxy: IR-DIALER-03
 
   - name: IR-DIALER-04
     <<: *warp-dialer-common
-    server: 188.114.97.246
-    port: 942
+    server: 188.114.97.116
+    port: 968
 
   - name: EU-ENTRY-04
     <<: *warp-entry-common
-    server: 188.114.97.223
-    port: 4198
+    server: 8.6.112.171
+    port: 7103
     dialer-proxy: IR-DIALER-04
 
   - name: IR-DIALER-05
     <<: *warp-dialer-common
-    server: 8.6.112.241
-    port: 2408
+    server: 8.6.112.86
+    port: 8854
 
   - name: EU-ENTRY-05
     <<: *warp-entry-common
-    server: 8.6.112.2
-    port: 1387
+    server: 8.6.112.182
+    port: 7152
     dialer-proxy: IR-DIALER-05
 
-  - name: MASQUE
+  - name: MASQUE-01
     <<: *masque-common
-    server: 162.159.198.2
-    port: 443
-    sni: 4pda.to
+    private-key: MHcCAQEEIEH+0J3SjeA8/nWSIWAT+z37prtg/dCCFyZFaZxh+eKYoAoGCCqGSM49AwEHoUQDQgAEsROcukB88dfTeTyj9EgLk2LMviMrg0Ell0Z7tjz78c4RQn3p4rdI1OLAGXKMix+MPdMrX5SYaEpjwJPkocH0Cg==
+    ip: 172.16.0.2
+    ipv6: 2606:4700:110:8904:8bf8:d2b9:f16:1f66
+    server: 162.159.198.90
+    port: 500
+    sni: www.cloudflare.com
 
-  - name: MASQUE-H2
+  - name: MASQUE-02
     <<: *masque-common
-    server: 162.159.198.2
+    private-key: MHcCAQEEIEH+0J3SjeA8/nWSIWAT+z37prtg/dCCFyZFaZxh+eKYoAoGCCqGSM49AwEHoUQDQgAEsROcukB88dfTeTyj9EgLk2LMviMrg0Ell0Z7tjz78c4RQn3p4rdI1OLAGXKMix+MPdMrX5SYaEpjwJPkocH0Cg==
+    ip: 172.16.0.2
+    ipv6: 2606:4700:110:8904:8bf8:d2b9:f16:1f66
+    server: 162.159.198.171
     port: 443
-    sni: 4pda.to
-    network: h2
+    sni: profile.activision.com
+
+  - name: MASQUE-03
+    <<: *masque-common
+    private-key: MHcCAQEEIK+pLLvBNNV366AIXqqoga8KGEOqua8+0mBB1mSzRb7EoAoGCCqGSM49AwEHoUQDQgAEF5WW5QFXDf8Uato4niqZsUAF9kqItM79F2tyeY6+S02d63toZ0TwTERdquYKsgNPbf/NZPtZ5Gpx1CZsS/07jg==
+    ip: 172.16.0.2
+    ipv6: 2606:4700:110:88d7:db6d:f4ca:114a:1a11
+    server: 162.159.198.17
+    port: 4443
+    sni: tgju.org
+
+  - name: MASQUE-04
+    <<: *masque-common
+    private-key: MHcCAQEEIK+pLLvBNNV366AIXqqoga8KGEOqua8+0mBB1mSzRb7EoAoGCCqGSM49AwEHoUQDQgAEF5WW5QFXDf8Uato4niqZsUAF9kqItM79F2tyeY6+S02d63toZ0TwTERdquYKsgNPbf/NZPtZ5Gpx1CZsS/07jg==
+    ip: 172.16.0.2
+    ipv6: 2606:4700:110:88d7:db6d:f4ca:114a:1a11
+    server: 162.159.198.126
+    port: 443
+    sni: repo.steampowered.com
 
 proxy-groups:
   - name: ⚪PROXIES
@@ -186,20 +208,16 @@ proxy-groups:
     icon: https://pub-b3ab4c8172fb44e29854df3435aa223d.r2.dev/cf.svg
     proxies:
       - 🇪🇺AUTO-EU-ENTRY
-      - 🇮🇷AUTO-IR-DIALER
-      - DIRECT
-      - MASQUE
-      - MASQUE-H2
-      - IR-DIALER-01
-      - IR-DIALER-02
-      - IR-DIALER-03
-      - IR-DIALER-04
-      - IR-DIALER-05
       - EU-ENTRY-01
       - EU-ENTRY-02
       - EU-ENTRY-03
       - EU-ENTRY-04
       - EU-ENTRY-05
+      - MASQUE-01
+      - MASQUE-02
+      - MASQUE-03
+      - MASQUE-04
+      - DIRECT
 
   - name: 🇮🇷AUTO-IR-DIALER
     type: url-test
@@ -227,73 +245,7 @@ proxy-groups:
       - EU-ENTRY-04
       - EU-ENTRY-05
 
-rule-providers:
-  phishing:
-    type: http
-    format: text
-    behavior: domain
-    url: https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/phishing.txt
-    path: ./ruleset/phishing.txt
-    interval: 86400
-  malware:
-    type: http
-    format: text
-    behavior: domain
-    url: https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/malware.txt
-    path: ./ruleset/malware.txt
-    interval: 86400
-  cryptominers:
-    type: http
-    format: text
-    behavior: domain
-    url: https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/cryptominers.txt
-    path: ./ruleset/cryptominers.txt
-    interval: 86400
-  category-ads-all:
-    type: http
-    format: text
-    behavior: domain
-    url: https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/category-ads-all.txt
-    path: ./ruleset/category-ads-all.txt
-    interval: 86400
-  private:
-    type: http
-    format: yaml
-    behavior: domain
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
-    path: ./ruleset/private.yaml
-    interval: 86400
-  private-cidr:
-    type: http
-    format: yaml
-    behavior: ipcidr
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.yaml
-    path: ./ruleset/private-cidr.yaml
-    interval: 86400
-  ir:
-    type: http
-    format: text
-    behavior: domain
-    url: https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ir.txt
-    path: ./ruleset/ir.txt
-    interval: 86400
-  ir-cidr:
-    type: http
-    format: text
-    behavior: ipcidr
-    url: https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ircidr.txt
-    path: ./ruleset/ir-cidr.txt
-    interval: 86400
-
 rules:
-  - RULE-SET,phishing,REJECT
-  - RULE-SET,malware,REJECT
-  - RULE-SET,cryptominers,REJECT
-  - RULE-SET,category-ads-all,REJECT
-  - RULE-SET,private,DIRECT
-  - RULE-SET,private-cidr,DIRECT,no-resolve
-  - RULE-SET,ir,DIRECT
-  - RULE-SET,ir-cidr,DIRECT,no-resolve
   - MATCH,⚪PROXIES
 
 ntp:
