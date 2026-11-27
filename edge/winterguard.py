@@ -478,6 +478,7 @@ def main():
         template_str.replace("__PROXIES_BLOCK__", proxies_block)
         .replace("__PROXY_GROUPS_BLOCK__", groups_block)
         .replace("__SELECTOR_GROUP__", MAIN_SELECTOR_GROUP_NAME)
+        .replace("__DIALER_GROUP__", DIALER_URL_TEST_GROUP_NAME)
     )
 
     try:
