@@ -1,5 +1,5 @@
 # Generated configs for clash-meta with WireGuard proxies that have amnezia v2 parameters.
-# Time is: 2026-11-27T13:21:36.879965
+# Time is: 2026-11-27T18:28:02.740875
 
 mixed-port: 7890
 ipv6: false
@@ -65,37 +65,34 @@ tun:
 warp-dialer-common: &warp-dialer-common
   type: wireguard
   ip: 172.16.0.2/32
+  ipv6: 2606:4700:110:83a5:46bd:f757:61e4:8148/128
   ip-version: ipv4
-  private-key: 0OOvfIf5qKGZe5YvinIZm/Hm2ewiGTkGC9JpT7Q1sl0=
+  private-key: eHdQSAD5PSjPDmLTGQf5YMgjhwwNEvxh4N3UV3xRRHo=
   public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
   allowed-ips:
     - 0.0.0.0/0
-  reserved: namC
+    - ::/0
+  reserved: a7T8
   udp: true
   mtu: 1280
   amnezia-wg-option:
     jc: 3
     jmin: 10
     jmax: 50
-    s1: 0
-    s2: 0
-    h1: 1
-    h2: 2
-    h4: 3
-    h3: 4
-    i1: <b 0xc800000001018800002b45615e996de27ff5ec5f583061ab38eac69fd8fec356802847cd1c7c15a87402bb0a433d4054defedc066e>
 
 warp-entry-common: &warp-entry-common
   type: wireguard
-  ip: 172.16.0.3/32
+  ip: 172.16.0.2/32
+  ipv6: 2606:4700:110:8b54:364c:c159:5067:3c13/128
   ip-version: ipv4
-  private-key: oGnMyE6GsG3RNOcslfjsYI1hfiuooD2p8I/06+BP3kg=
+  private-key: UKqvIqdHTRxmRvTYsBQq1SRkOL/beP3p3ZyUFK/1A1k=
   public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
   allowed-ips:
     - 0.0.0.0/0
-  reserved: 6yl4
+    - ::/0
+  reserved: esHq
   udp: true
-  mtu: 1120
+  mtu: 1280
 
 masque-common: &masque-common
   type: masque
@@ -113,57 +110,57 @@ masque-common: &masque-common
 proxies:
   - name: IR-DIALER-01
     <<: *warp-dialer-common
-    server: 8.6.112.111
-    port: 5956
+    server: 8.6.112.205
+    port: 8319
 
   - name: EU-ENTRY-01
     <<: *warp-entry-common
-    server: 188.114.97.121
-    port: 1074
+    server: 162.159.192.1
+    port: 2408
     dialer-proxy: IR-DIALER-01
 
   - name: IR-DIALER-02
     <<: *warp-dialer-common
-    server: 188.114.97.161
-    port: 2371
+    server: 188.114.96.195
+    port: 1002
 
   - name: EU-ENTRY-02
     <<: *warp-entry-common
-    server: 8.6.112.98
-    port: 968
+    server: 162.159.192.1
+    port: 2408
     dialer-proxy: IR-DIALER-02
 
   - name: IR-DIALER-03
     <<: *warp-dialer-common
-    server: 8.6.112.51
-    port: 5279
+    server: 188.114.97.230
+    port: 3138
 
   - name: EU-ENTRY-03
     <<: *warp-entry-common
-    server: 188.114.97.118
-    port: 934
+    server: 162.159.192.1
+    port: 2408
     dialer-proxy: IR-DIALER-03
 
   - name: IR-DIALER-04
     <<: *warp-dialer-common
-    server: 188.114.97.116
-    port: 968
+    server: 162.159.195.245
+    port: 1074
 
   - name: EU-ENTRY-04
     <<: *warp-entry-common
-    server: 8.6.112.171
-    port: 7103
+    server: 162.159.192.1
+    port: 2408
     dialer-proxy: IR-DIALER-04
 
   - name: IR-DIALER-05
     <<: *warp-dialer-common
-    server: 8.6.112.86
-    port: 8854
+    server: 162.159.195.116
+    port: 4177
 
   - name: EU-ENTRY-05
     <<: *warp-entry-common
-    server: 8.6.112.182
-    port: 7152
+    server: 162.159.192.1
+    port: 2408
     dialer-proxy: IR-DIALER-05
 
   - name: MASQUE-01
@@ -207,6 +204,7 @@ proxy-groups:
     type: select
     icon: https://pub-b3ab4c8172fb44e29854df3435aa223d.r2.dev/cf.svg
     proxies:
+      - AUTO-MASQUE
       - 🇪🇺AUTO-EU-ENTRY
       - EU-ENTRY-01
       - EU-ENTRY-02
@@ -234,7 +232,7 @@ proxy-groups:
 
   - name: 🇪🇺AUTO-EU-ENTRY
     type: url-test
-    url: http://speed.cloudflare.com
+    url: https://www.gstatic.com/generate_204
     icon: https://pub-b3ab4c8172fb44e29854df3435aa223d.r2.dev/eu.svg
     interval: 180
     tolerance: 50
@@ -244,6 +242,17 @@ proxy-groups:
       - EU-ENTRY-03
       - EU-ENTRY-04
       - EU-ENTRY-05
+
+  - name: AUTO-MASQUE
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 180
+    tolerance: 50
+    proxies:
+      - MASQUE-01
+      - MASQUE-02
+      - MASQUE-03
+      - MASQUE-04
 
 rules:
   - MATCH,⚪PROXIES
