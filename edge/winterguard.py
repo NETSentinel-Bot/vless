@@ -26,6 +26,9 @@ ENTRY_PROXY_BASE_NAME = os.environ.get("ENTRY_PROXY_BASE_NAME", "EU-ENTRY")
 MAIN_SELECTOR_GROUP_NAME = os.environ.get("MAIN_SELECTOR_GROUP_NAME", "⚪PROXIES")
 DIALER_URL_TEST_GROUP_NAME = f"🇮🇷AUTO-{DIALER_PROXY_BASE_NAME}"
 ENTRY_URL_TEST_GROUP_NAME = f"🇪🇺AUTO-{ENTRY_PROXY_BASE_NAME}"
+MASQUE_URL_TEST_GROUP_NAME = "AUTO-MASQUE"
+ENTRY_SERVER = "162.159.192.1"
+ENTRY_PORT = 2408
 
 MASQUE_PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIaU7MToJm9NKp8YfGxR6r+/h4mcG7SxI8tsW8OR1A5tv/zCzVbCRRh2t87/kxnP6lAy0lkr7qYwu+ox+k3dr6w=="
 MASQUE_CONFIGS = [
@@ -262,7 +265,7 @@ def bind_keys(key_type):
         sys.exit(1)
 
 
-ipv4_prefixes = ["8.6.112.", "188.114.97."]
+ipv4_prefixes = ["8.6.112.", "8.34.70.", "162.159.195.", "188.114.96.", "188.114.97."]
 
 ports_str = os.environ.get(
     "AVAILABLE_PORTS",
@@ -280,18 +283,29 @@ def generate_ipv4_endpoint():
 
 
 def build_proxies_block(
-    pairs, priv_dialer, reserved_dialer, priv_entry, reserved_entry
+    pairs,
+    priv_dialer,
+    reserved_dialer,
+    v4_dialer,
+    v6_dialer,
+    priv_entry,
+    reserved_entry,
+    v4_entry,
+    v6_entry,
 ):
     lines = []
 
     lines.append("warp-dialer-common: &warp-dialer-common")
     lines.append("  type: wireguard")
-    lines.append("  ip: 172.16.0.2/32")
+    lines.append(f"  ip: {v4_dialer or '172.16.0.2'}/32")
+    if v6_dialer:
+        lines.append(f"  ipv6: {v6_dialer}/128")
     lines.append("  ip-version: ipv4")
     lines.append(f"  private-key: {priv_dialer}")
     lines.append(f"  public-key: {CLOUDFLARE_PUBLIC_KEY}")
     lines.append("  allowed-ips:")
     lines.append("    - 0.0.0.0/0")
+    lines.append("    - ::/0")
     lines.append(f"  reserved: {reserved_dialer}")
     lines.append("  udp: true")
     lines.append("  mtu: 1280")
@@ -299,28 +313,22 @@ def build_proxies_block(
     lines.append("    jc: 3")
     lines.append("    jmin: 10")
     lines.append("    jmax: 50")
-    lines.append("    s1: 0")
-    lines.append("    s2: 0")
-    lines.append("    h1: 1")
-    lines.append("    h2: 2")
-    lines.append("    h4: 3")
-    lines.append("    h3: 4")
-    lines.append(
-        "    i1: <b 0xc800000001018800002b45615e996de27ff5ec5f583061ab38eac69fd8fec356802847cd1c7c15a87402bb0a433d4054defedc066e>"
-    )
     lines.append("")
 
     lines.append("warp-entry-common: &warp-entry-common")
     lines.append("  type: wireguard")
-    lines.append("  ip: 172.16.0.3/32")
+    lines.append(f"  ip: {v4_entry or '172.16.0.2'}/32")
+    if v6_entry:
+        lines.append(f"  ipv6: {v6_entry}/128")
     lines.append("  ip-version: ipv4")
     lines.append(f"  private-key: {priv_entry}")
     lines.append(f"  public-key: {CLOUDFLARE_PUBLIC_KEY}")
     lines.append("  allowed-ips:")
     lines.append("    - 0.0.0.0/0")
+    lines.append("    - ::/0")
     lines.append(f"  reserved: {reserved_entry}")
     lines.append("  udp: true")
-    lines.append("  mtu: 1120")
+    lines.append("  mtu: 1280")
     lines.append("")
 
     lines.append("masque-common: &masque-common")
@@ -339,7 +347,7 @@ def build_proxies_block(
 
     lines.append("proxies:")
 
-    for num, (s_dialer, p_dialer, s_entry, p_entry) in enumerate(pairs, 1):
+    for num, (s_dialer, p_dialer) in enumerate(pairs, 1):
         tag = f"{num:02d}"
         entry_name = f"{ENTRY_PROXY_BASE_NAME}-{tag}"
 
@@ -351,8 +359,8 @@ def build_proxies_block(
 
         lines.append(f"  - name: {entry_name}")
         lines.append("    <<: *warp-entry-common")
-        lines.append(f"    server: {s_entry}")
-        lines.append(f"    port: {p_entry}")
+        lines.append(f"    server: {ENTRY_SERVER}")
+        lines.append(f"    port: {ENTRY_PORT}")
         lines.append(f"    dialer-proxy: {DIALER_PROXY_BASE_NAME}-{tag}")
         lines.append("")
 
@@ -372,7 +380,7 @@ def build_proxies_block(
 
 def build_proxy_groups_block(dialer_names, entry_names):
     all_proxies = (
-        [ENTRY_URL_TEST_GROUP_NAME]
+        [MASQUE_URL_TEST_GROUP_NAME, ENTRY_URL_TEST_GROUP_NAME]
         + entry_names
         + MASQUE_PROXY_NAMES
         + ["DIRECT"]
@@ -401,12 +409,22 @@ def build_proxy_groups_block(dialer_names, entry_names):
 
     lines.append(f"  - name: {ENTRY_URL_TEST_GROUP_NAME}")
     lines.append("    type: url-test")
-    lines.append("    url: http://speed.cloudflare.com")
+    lines.append("    url: https://www.gstatic.com/generate_204")
     lines.append("    icon: https://pub-b3ab4c8172fb44e29854df3435aa223d.r2.dev/eu.svg")
     lines.append("    interval: 180")
     lines.append("    tolerance: 50")
     lines.append("    proxies:")
     for p in entry_names:
+        lines.append(f"      - {p}")
+    lines.append("")
+
+    lines.append(f"  - name: {MASQUE_URL_TEST_GROUP_NAME}")
+    lines.append("    type: url-test")
+    lines.append("    url: https://www.gstatic.com/generate_204")
+    lines.append("    interval: 180")
+    lines.append("    tolerance: 50")
+    lines.append("    proxies:")
+    for p in MASQUE_PROXY_NAMES:
         lines.append(f"      - {p}")
     lines.append("")
 
@@ -429,8 +447,8 @@ def main():
         logger.error(f"Error reading template: {e}")
         sys.exit(1)
 
-    priv_dialer, reserved_dialer, _, _ = bind_keys("dialer")
-    priv_entry, reserved_entry, _, _ = bind_keys("entry")
+    priv_dialer, reserved_dialer, v4_dialer, v6_dialer = bind_keys("dialer")
+    priv_entry, reserved_entry, v4_entry, v6_entry = bind_keys("entry")
 
     pairs = []
     dialer_names = []
@@ -439,15 +457,20 @@ def main():
     for i in range(NUM_PROXY_PAIRS):
         tag = f"{i + 1:02d}"
         s_d, p_d = generate_ipv4_endpoint()
-        s_e, p_e = generate_ipv4_endpoint()
-        while s_e == s_d:
-            s_e, p_e = generate_ipv4_endpoint()
-        pairs.append((s_d, p_d, s_e, p_e))
+        pairs.append((s_d, p_d))
         dialer_names.append(f"{DIALER_PROXY_BASE_NAME}-{tag}")
         entry_names.append(f"{ENTRY_PROXY_BASE_NAME}-{tag}")
 
     proxies_block = build_proxies_block(
-        pairs, priv_dialer, reserved_dialer, priv_entry, reserved_entry
+        pairs,
+        priv_dialer,
+        reserved_dialer,
+        v4_dialer,
+        v6_dialer,
+        priv_entry,
+        reserved_entry,
+        v4_entry,
+        v6_entry,
     )
     groups_block = build_proxy_groups_block(dialer_names, entry_names)
 
