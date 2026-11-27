@@ -1,5 +1,5 @@
 mixed-port: 7890
-ipv6: false
+ipv6: true
 allow-lan: true
 mode: rule
 log-level: error
@@ -25,20 +25,12 @@ dns:
   ipv6: false
   respect-rules: false
   use-system-hosts: false
-  listen: 0.0.0.0:1053
-  default-nameserver:
-    - 1.1.1.1
-    - 8.8.8.8
-    - 223.5.5.5
+  listen: 127.0.0.1:1053
   nameserver:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-    - https://223.5.5.5/dns-query
-  fallback:
-    - tls://8.8.4.4
-    - tls://1.0.0.1
-    - tls://223.6.6.6
+    - "1.1.1.1#__DIALER_GROUP__"
   proxy-server-nameserver:
+    - 8.8.8.8#DIRECT
+  direct-nameserver:
     - 8.8.8.8#DIRECT
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
